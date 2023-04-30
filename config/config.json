@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "bduaciwn",
+    "password": "gVevIz8eX9cPzrejKBjRoYJu-88J4F4_",
+    "database": "bduaciwn",
+    "host": "horton.db.elephantsql.com",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "bduaciwn",
+    "password": "gVevIz8eX9cPzrejKBjRoYJu-88J4F4_",
+    "database": "bduaciwn",
+    "host": "horton.db.elephantsql.com",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "bduaciwn",
+    "password": "gVevIz8eX9cPzrejKBjRoYJu-88J4F4_",
+    "database": "bduaciwn",
+    "host": "horton.db.elephantsql.com",
+    "dialect": "postgres"
+  }
+}

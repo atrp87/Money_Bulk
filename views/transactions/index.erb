@@ -1,0 +1,147 @@
+<section class='transaction-section'>
+<div class='transaction-wrapper'>
+  <div>
+    <h2 class='text-center mt-3'>Transactions.</h2>
+    <p class='text-center'>Create, edit and delete transactions aswell as filter categories and merchants by name.</p>
+  </div>
+<! -- CATEGORY -->
+  <div class='container'>
+    <div class='row'>
+      <div class='col-sm mb-3'>
+        <form class='form-group' 
+            action='/transactions' 
+            method='POST'>
+          <select required name='tag_id' class='form-select text-muted' aria-label='.form-select-lg'>
+            <option hidden selected>Category</option>
+            <% for tag in @tags %>
+            <option value='<%= tag.id %>'><%= tag.name %></option>
+            <% end %>
+          </select>
+      </div>
+<! -- MERCHANT -->
+      <div class='col-sm mb-3'>
+        <select required name='merchant_id' class='form-select text-muted' aria-label='.form-select-lg'>
+          <option hidden selected>Merchant</option>
+          <% for merchant in @merchants %>
+          <option value='<%= merchant.id %>'><%= merchant.name %></option>
+          <% end %>
+        </select>
+      </div>
+<! -- AMOUNT -->
+      <div class='col-sm'>
+      <div class='input-group mb-4'>
+          <input
+            autocomplete="off"
+            class='form-control text-muted'
+            required
+            placeholder='£0.00' 
+            id='amount' 
+            type='number' 
+            name='amount' 
+            placeholder='add merchant' 
+            required 
+          />
+          <div class='input-group-append'>
+            <button class='btn btn-outline-success' type='submit'>Save</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+    <! -- CATAGORY FILTER -->
+  <div class='container'>
+    <div class='row'>
+      <div class='col-sm d-flex justify-content-center'>
+        <form class='filter' action='/transactions/tags' method='GET'>
+          <div class='input-group mb-3'>
+            <div class='input-group-append'>
+              <button class='btn btn-outline-success' type='submit' value='Submit'>
+                <i class='bi bi-funnel'></i>
+              </button>
+            </div>
+            <select name='tag_id' required class='form-select form-select-m mb-3 text-muted'>
+              <option value="" disabled selected>Filter Categories</option>
+              <% for tag in @tags %>
+              <option value='<%= tag.id %>'><%= tag.name %></option>
+              <% end %>
+            </select>
+        </form>
+      </div>
+      <div class='input-group-prepend'>
+        <a href='/transactions'>
+          <button class='btn btn-outline-secondary' type='submit' value='Submit'>
+            <i class='bi bi-arrow-counterclockwise'></i>
+          </button>
+        </a>
+      </div>
+    </div>
+<! -- MERCHANT FILTER -->
+  <div class='col-sm d-flex justify-content-center'>
+    <form class='filter' action='/transactions/merchants' method='GET'>
+      <div class='input-group mb-3'>
+        <div class='input-group-append'>
+          <button class='btn btn-outline-success' type='submit' value='Submit'>
+            <i class='bi bi-funnel'></i>
+        </button>
+      </div>
+      <select name='merchant_id' required class='form-select form-select-m mb-3 text-muted'>
+        <option value="" disabled selected>Filter Merchants</option>
+          <% for merchant in @merchants %>
+          <option value='<%= merchant.id %>'><%= merchant.name %></option>
+          <% end %>
+        </select>
+    </form>
+  </div>
+    <div class='input-group-prepend'>
+      <a href='/transactions'>
+        <button class='btn btn-outline-secondary' type='submit' value='Submit'>
+            <i class='bi bi-arrow-counterclockwise'></i>
+        </button>
+      </a>
+    </div>
+  </div>
+
+<! -- TABLE -->
+
+  <table class='table table-bordered table-hover table-responsive'>
+    <thead class='thead-light'>
+      <tr class='table-primary'>
+        <th scope='col'>CATEGORIES</th>
+        <th scope='col'>MERCHANTS</th>
+        <th class='text-center' scope='currency col'>- £ <%= sprintf('%.2f', @total) %></th>
+        <th class='text-center' scope='col'>EDIT</th>
+        <th class='text-center' scope='col'>DELETE</th>
+      </tr>
+    </thead>
+    <tbody class='tbody'>
+    <% for transaction in @transactions %>
+      <tr>
+        <td scope='row'>
+          <%= transaction.tag.name %>
+        </td>
+        <td scope='row'>
+          <%= transaction.merchant.name %>
+        </td>
+        <td scope='currency row'>
+          £ <%= sprintf('%.2f', transaction.amount) %>
+        </td>
+        <td align='center' scope='row'>
+          <a href='/transactions/<%= transaction.id %>/edit'>
+            <button type='submit' class='btn btn-outline-primary btn-sm px-3'>
+              <i class='bi bi-pen'></i>
+            </button>
+          </a>
+        <td>
+          <form class='d-flex justify-content-center' action='/transactions/<%= transaction.id %>/delete' method='POST'>
+            <button type='submit' class='btn btn-outline-danger btn-sm px-3'>
+              <i class='bi bi-trash'></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+
+</section>  

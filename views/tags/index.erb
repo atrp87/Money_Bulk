@@ -1,0 +1,56 @@
+<section id='tag-create'>
+    <div class='container-lg mt-4'>
+      <div class='text-center'>
+        <h2>Categories.</h2>
+        <p>Create or edit categories and delete existing ones.</p>
+      </div>
+      <div class='row justify-content-center mb-4'>
+        <div class='col-lg-6'>
+          <form action='/tags' method='POST'>
+            <div class='input-group mb-4'>
+              <label for='name'></label>
+              <input autocomplete="off" type='text' id='name' name='name' class='form-control' placeholder='New Category' required />
+              <div class='input-group-append'>
+                <button class='btn btn-outline-success' type='submit'>Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</section>
+<section class='vendor-table'>
+  <table class='table table-bordered table-hover table-responsive'>
+    <thead class='thead-light'>
+      <tr class='table-primary'>
+        <th scope='col'>CATEGORY</th>
+        <th class='text-center' scope='col'>EDIT</th>
+        <th class='text-center' scope='col'>DELETE</th>
+      </tr>
+    </thead>
+    <% for tag in @tags %>
+    <tbody class='tbody'>
+      <tr>
+        <td scope='row'>
+          <%= tag.name %></a>
+        </td>
+        <td align='center' scope='row'>
+          <a href='/tags/<%= tag.id %>/edit'>
+            <button class='btn btn-outline-primary btn-sm px-3'>
+              <i class='bi bi-pen'></i>
+            </button>
+          </a>
+        <td>
+          <form class='d-flex justify-content-center' 
+            action='/tags/<%= tag.id %>/delete' 
+            method='POST'>
+              <button type='submit' class='btn btn-outline-danger btn-sm px-3'>
+                <i class='bi bi-trash'></i>
+              </button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+</section>  
